@@ -1,0 +1,42 @@
+---
+- name: 'Instalar pacotes de dependencia do OS'
+  apt:
+    name:
+    - python-pymysql
+    - php-mysql
+    - mysql-server
+    - python-mysqldb
+    state: latest
+  become: yes
+
+- name: 'Cria banco de dados MySQL'
+  mysql_db:
+    name: "{{ wp_db_name }}"
+    login_user: root
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+  become: yes
+
+- name: 'Cria user MySQL'
+  mysql_user:
+    login_user: root
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_host: localhost
+    name: "{{ wp_db_username }}"
+    password: "{{ wp_user_db_pass }}"
+    priv: "{{ wp_db_name }}.*:ALL"
+    state: present
+    host: "{{ item }}"
+  with_items:
+    - 'localhost'
+    - "{{ wp_db_ip }}"
+    - "{{ wp_host_ip }}"
+  become: yes
+
+- name: 'Configura mysql para conectar no Wordpress'
+  copy:
+    src: 'files/my.cnf'
+    dest: '/etc/mysql/mysql.conf.d/mysqld.cnf'
+  become: yes
+  notify:
+    - restart mysql

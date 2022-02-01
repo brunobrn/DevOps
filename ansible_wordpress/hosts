@@ -1,2 +1,4 @@
 [wordpress]
 192.168.56.40 ansible_user=vagrant ansible_ssh_private_key_file"=/home/bruno/Documents/GitHub/DevOps/ansible_wordpress/.vagrant/machines/wordpress/virtualbox/private_key"
+[database]
+192.168.56.41 ansible_user=vagrant ansible_ssh_private_key_file"=/home/bruno/Documents/GitHub/DevOps/ansible_wordpress/.vagrant/machines/mysql/virtualbox/private_key"

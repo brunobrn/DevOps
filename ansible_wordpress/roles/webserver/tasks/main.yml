@@ -1,0 +1,13 @@
+---
+    - name: 'Instalar pacotes de dependencia do OS'
+      apt:
+        name:
+        - php7.0
+        - apache2
+        - libapache2-mod-php7.0
+        - php-gd
+        - python-mysqldb
+        - php-mysql
+        - python-pymysql
+        state: latest
+      become: yes
