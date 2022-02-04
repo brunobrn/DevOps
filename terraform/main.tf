@@ -1,7 +1,7 @@
 provider "aws" {
     region = "sa-east-1"  
-    access_key = "AKIAQSUSQ642SEF7HGNH"
-    secret_key = "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"
+    access_key = ""
+    secret_key = ""
 }
 resource "aws_instance" "homolog" {
     count = 3
